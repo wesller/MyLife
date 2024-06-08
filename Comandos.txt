@@ -2,3 +2,7 @@
 flutter emulators --launch Pixel_3a_API_34_extension_level_7_x86_64
 flutter devices
 flutter run -d "nome device"
+
+# Git
+git pull origin master --rebase
+git push origin master --force-with-lease

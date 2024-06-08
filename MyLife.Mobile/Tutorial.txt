@@ -5,4 +5,4 @@ emulator -avd Pixel_4_API_31
 # run
 npm run android
 npm run web
-npx expo start --clear
+npx expo start --clear --android

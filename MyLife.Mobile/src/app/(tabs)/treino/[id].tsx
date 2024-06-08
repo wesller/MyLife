@@ -2,16 +2,16 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const CatDetails = () => {
-  const [cat, setCat] = useState<any>(null);
+const AnotacaoDetails = () => {
+  const [anotacao, setAnotacao] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useLocalSearchParams();
 
   useEffect(() => {
-    fetch(`https://api.thecatapi.com/v1/breeds/${id}`)
+    fetch(`https://10.0.2.2:7165/anotacao/${id}`)
       .then((response) => response.json())
       .then((json) => {
-        setCat(json);
+        setAnotacao(json);
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
@@ -25,14 +25,13 @@ const CatDetails = () => {
     <View>
       <Stack.Screen
         options={{
-          title: cat.name,
+          title: anotacao.name,
         }}
       />
       <View>
-        <Text style={styles.name}>Name: {cat.name}</Text>
-        <Text style={styles.text}>Origin: {cat.origin}</Text>
-        <Text style={styles.text}>Temperament: {cat.temperament}</Text>
-        <Text style={styles.text}>Description: {cat.description}</Text>
+        <Text style={styles.name}>Id: {anotacao.name}</Text>
+        <Text style={styles.text}>Descricao: {anotacao.descricao}</Text>
+        <Text style={styles.text}>Texto: {anotacao.texto}</Text>
       </View>
     </View>
   );
@@ -52,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CatDetails;
+export default AnotacaoDetails;

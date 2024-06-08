@@ -9,17 +9,25 @@ export default function AppLayout() {
       }}
     >
       <Tabs.Screen
-        name="cats"
+        name="anotacoes"
         options={{
-          title: "Cats",
-          tabBarIcon: () => <Text>🐱</Text>,
+          title: "Anotações",
+          tabBarIcon: () => <Text>&#9997;</Text>,
         }}
       />
       <Tabs.Screen
-        name="dogs"
+        name="biblia"
         options={{
-          title: "Dogs",
-          tabBarIcon: () => <Text>🐶</Text>,
+          title: "Biblia Sagrada",
+          tabBarIcon: () => <Text>&#10014;</Text>,
+        }}
+      />
+
+      <Tabs.Screen
+        name="treino"
+        options={{
+          title: "Treino",
+          tabBarIcon: () => <Text>&#9977;</Text>,
         }}
       />
     </Tabs>

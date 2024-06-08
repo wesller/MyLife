@@ -1,3 +1,5 @@
+import DatabaseService from "@/database/database-service";
+import { Anotacao } from "@/database/models/anotacao";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
@@ -7,31 +9,32 @@ const AnotacaoDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useLocalSearchParams();
 
-  useEffect(() => {
-    fetch(`https://10.0.2.2:7165/anotacao/${id}`)
-      .then((response) => response.json())
-      .then((json) => {
-        setAnotacao(json);
-        setIsLoading(false);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+  let dados = new Anotacao(0 , '', '');
 
-  if (isLoading) {
-    return <Text>Loading...</Text>;
+  function add(a : Anotacao) {
+    dados = a;
   }
 
+  useEffect(() => {
+    const dbservice = new DatabaseService();
+    dbservice.SelectId(id).then(function (result) {
+      add(result);
+      setIsLoading(false);
+      setAnotacao(dados);
+      }).catch(erro => console.debug('erro no promise::' + erro));
+  }, []);
+  
   return (
     <View>
-      <Stack.Screen
+     <Stack.Screen
         options={{
-          title: anotacao.name,
+          title: anotacao.descricao,
         }}
       />
       <View>
-        <Text style={styles.name}>Id: {anotacao.name}</Text>
-        <Text style={styles.text}>Descricao: {anotacao.descricao}</Text>
-        <Text style={styles.text}>Texto: {anotacao.texto}</Text>
+       <Text style={styles.name}>Id: {anotacao.id}</Text>
+       <Text style={styles.text}>Descrição:{anotacao.descricao}</Text>
+       <Text style={styles.text}>Texto: {anotacao.texto}</Text> 
       </View>
     </View>
   );

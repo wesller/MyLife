@@ -2,41 +2,42 @@ import { Link, Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
-const Cats = () => {
-  const [cats, setCats] = useState([]);
+const Anotacoes = () => {
+  const [anotacoes, setAnotacoes] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.thecatapi.com/v1/breeds?limit=20")
+    fetch("https://10.0.2.2:7165/anotacao")
       .then((response) => response.json())
       .then((json) => {
-        setCats(json);
+        setAnotacoes(json);
       })
       .catch((error) => console.error(error));
   }, []);
 
   const renderItem = ({ item }: { item: any }) => (
-    <Link href={`/cats/${item.id}`} asChild>
+    <Link href={`/anotacoes/${item.id}`} asChild>
       <Pressable style={styles.itemContainer}>
         <View style={styles.textContainer}>
-          <Text style={styles.nameText}>{item.name}</Text>
+          <Text style={styles.nameText}>{item.descricao}</Text>
         </View>
       </Pressable>
     </Link>
   );
 
   return (
-    <View>
-   <Stack.Screen options={{ title: "Dogs" }} />
+    <View style={styles.itemContainer}> 
+   <Stack.Screen options={{ title: "Biblia Sagrada" }} />
       <FlatList
-        data={cats}
-        keyExtractor={({ id }) => id}
-        renderItem={renderItem}
+        data={anotacoes}
+        keyExtractor={({ item }) => item.id}
+        renderItem={renderItem} 
+        
       />
     </View>
   );
 };
 
-export default Cats;
+export default Anotacoes;
 
 const styles = StyleSheet.create({
   itemContainer: {

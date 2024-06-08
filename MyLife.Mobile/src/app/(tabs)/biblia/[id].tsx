@@ -2,16 +2,16 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const DogDetails = () => {
-  const [dog, setDog] = useState<any>(null);
+const AnotacaoDetails = () => {
+  const [anotacao, setAnotacao] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useLocalSearchParams();
 
   useEffect(() => {
-    fetch(`https://api.thedogapi.com/v1/breeds/${id}`)
+    fetch(`https://10.0.2.2:7165/anotacao/${id}`)
       .then((response) => response.json())
-      .then((data) => {
-        setDog(data);
+      .then((json) => {
+        setAnotacao(json);
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
@@ -25,13 +25,13 @@ const DogDetails = () => {
     <View>
       <Stack.Screen
         options={{
-          title: dog.name,
+          title: anotacao.name,
         }}
       />
       <View>
-        <Text style={styles.name}>Name: {dog.name}</Text>
-        <Text style={styles.text}>Origin: {dog.origin}</Text>
-        <Text style={styles.text}>Temperament: {dog.temperament}</Text>
+        <Text style={styles.name}>Id: {anotacao.name}</Text>
+        <Text style={styles.text}>Descricao: {anotacao.descricao}</Text>
+        <Text style={styles.text}>Texto: {anotacao.texto}</Text>
       </View>
     </View>
   );
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DogDetails;
+export default AnotacaoDetails;
